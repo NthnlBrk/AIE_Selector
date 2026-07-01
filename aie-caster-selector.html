@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caster Selector — AIE Company, Inc.</title>
+<meta name="description" content="Spec the right industrial caster in under 3 minutes. Load, floor, mounting, mobility — defensible specification with capacity math shown live. Free tool from AIE Casters, the trusted industry advisor since 1969.">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=PT+Sans:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   AIE CASTER SELECTOR — Refined Industrial Brutalism
+   Tokens
+   ============================================================ */
+:root {
+  --c-white: #FFFFFF;
+  --c-cream: #FAF8F4;
+  --c-ink: #1F1F1F;
+  --c-ink-soft: #2A2A2A;
+  --c-grey: #888888;
+  --c-grey-light: #D9D9D9;
+  --c-grey-lighter: #EFEFEF;
+  --c-red: #C8102E;
+  --c-red-dark: #A00D25;
+  --c-red-soft: #FCEBED;
+
+  --f-display: 'Space Grotesk', 'PT Sans', system-ui, sans-serif;
+  --f-body: 'PT Sans', system-ui, sans-serif;
+  --f-mono: 'JetBrains Mono', 'Courier New', monospace;
+
+  --border-heavy: 2px solid var(--c-ink);
+  --border-light: 1px solid var(--c-grey-light);
+  --border-active: 2px solid var(--c-red);
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 160ms;
+  --t-base: 240ms;
+  --t-slow: 420ms;
+
+  --pad-step: 40px;
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--c-ink);
+  background: var(--c-cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+input, select { font-family: inherit; font-size: inherit; color: inherit; }
+a { color: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header {
+  border-bottom: var(--border-heavy);
+  background: var(--c-white);
+  position: sticky; top: 0; z-index: 50;
+}
+.site-header-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex; align-items: center; gap: 14px;
+  text-decoration: none; color: var(--c-ink);
+}
+.brand-mark {
+  width: 44px; height: 44px;
+  border: var(--border-heavy);
+  display: grid; place-items: center;
+  background: var(--c-red);
+  color: var(--c-white);
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: -0.02em;
+}
+.brand-text { line-height: 1.1; }
+.brand-name { font-family: var(--f-display); font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.brand-tag { font-size: 11px; color: var(--c-grey); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+
+.header-phone {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--f-mono); font-weight: 500; font-size: 14px;
+  text-decoration: none; color: var(--c-ink);
+  padding: 10px 14px;
+  border: var(--border-heavy);
+  transition: background var(--t-fast) var(--ease), color var(--t-fast) var(--ease);
+}
+.header-phone:hover, .header-phone:focus-visible { background: var(--c-ink); color: var(--c-white); }
+.header-phone-label { font-family: var(--f-body); font-weight: 700; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-grey); }
+.header-phone:hover .header-phone-label { color: var(--c-grey-light); }
+.header-phone-num { display: block; }
+
+/* ============================================================
+   Intro band
+   ============================================================ */
+.intro {
+  background: var(--c-white);
+  border-bottom: var(--border-heavy);
+  padding: 56px 32px 64px;
+}
+.intro-inner { max-width: 1280px; margin: 0 auto; }
+.intro-eyebrow {
+  font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--c-red);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px;
+}
+.intro-eyebrow::before { content: ''; display: block; width: 32px; height: 2px; background: var(--c-red); }
+.intro-title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.02; letter-spacing: -0.025em;
+  max-width: 18ch;
+}
+.intro-title em { font-style: normal; color: var(--c-red); }
+.intro-sub {
+  margin-top: 20px; max-width: 56ch;
+  font-size: 17px; color: var(--c-ink-soft);
+}
+.intro-meta {
+  margin-top: 32px;
+  display: flex; flex-wrap: wrap; gap: 32px;
+  font-family: var(--f-mono); font-size: 12px; color: var(--c-grey);
+  text-transform: uppercase; letter-spacing: 0.1em;
+}
+.intro-meta strong { color: var(--c-ink); font-weight: 700; }
+
+/* ============================================================
+   Selector shell
+   ============================================================ */
+.selector {
+  max-width: 1280px; margin: 0 auto;
+  background: var(--c-white);
+  border-left: var(--border-heavy);
+  border-right: var(--border-heavy);
+}
+
+/* Progress strip */
+.progress {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: var(--border-heavy);
+}
+.progress-step {
+  padding: 14px 12px;
+  border-right: var(--border-light);
+  display: flex; flex-direction: column; gap: 4px;
+  background: var(--c-cream);
+  transition: background var(--t-base) var(--ease), color var(--t-base) var(--ease);
+  position: relative;
+  cursor: default;
+}
+.progress-step:last-child { border-right: 0; }
+.progress-step.is-done { background: var(--c-white); cursor: pointer; }
+.progress-step.is-active {
+  background: var(--c-ink);
+  color: var(--c-white);
+}
+.progress-step.is-done:hover, .progress-step.is-done:focus-visible {
+  background: var(--c-red-soft);
+}
+.progress-num {
+  font-family: var(--f-mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.progress-label {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+  line-height: 1.2;
+}
+.progress-step.is-active .progress-num { color: var(--c-red); }
+
+/* ============================================================
+   Grid: step pane + spec rail
+   ============================================================ */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  min-height: 600px;
+}
+.step-pane {
+  padding: var(--pad-step);
+  border-right: var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+.step-pane > .step { display: none; }
+.step-pane > .step.is-active { display: block; animation: stepIn var(--t-slow) var(--ease); }
+@keyframes stepIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.step-header {
+  display: flex; align-items: baseline; gap: 16px;
+  margin-bottom: 8px;
+}
+.step-num {
+  font-family: var(--f-mono); font-weight: 500;
+  font-size: 13px; letter-spacing: 0.05em;
+  color: var(--c-red);
+}
+.step-num::after { content: ' / 07'; color: var(--c-grey); }
+.step-title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  letter-spacing: -0.02em; line-height: 1.1;
+  margin-bottom: 10px;
+}
+.step-desc {
+  color: var(--c-ink-soft);
+  max-width: 60ch;
+  margin-bottom: 28px;
+}
+
+.why-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--f-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--c-grey);
+  padding: 6px 10px;
+  border: var(--border-light);
+  transition: all var(--t-fast) var(--ease);
+  margin-bottom: 24px;
+}
+.why-toggle:hover, .why-toggle:focus-visible {
+  color: var(--c-ink); border-color: var(--c-ink);
+}
+.why-toggle[aria-expanded="true"] { background: var(--c-ink); color: var(--c-white); border-color: var(--c-ink); }
+.why-content {
+  display: none;
+  background: var(--c-cream);
+  border-left: 3px solid var(--c-red);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+  font-size: 14.5px;
+  color: var(--c-ink-soft);
+  max-width: 70ch;
+}
+.why-content.is-open { display: block; animation: stepIn var(--t-base) var(--ease); }
+.why-content strong { color: var(--c-ink); }
+
+/* Card grid (used in multiple steps) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0;
+  border-top: var(--border-heavy);
+  border-left: var(--border-heavy);
+}
+.card {
+  border-right: var(--border-heavy);
+  border-bottom: var(--border-heavy);
+  padding: 20px 18px;
+  background: var(--c-white);
+  text-align: left;
+  display: flex; flex-direction: column; gap: 12px;
+  cursor: pointer;
+  transition: background var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+  position: relative;
+  min-height: 140px;
+}
+.card:hover { background: var(--c-cream); }
+.card:focus-visible { outline: 2px solid var(--c-red); outline-offset: -4px; }
+.card.is-selected { background: var(--c-ink); color: var(--c-white); }
+.card.is-selected .card-icon { background: var(--c-red); border-color: var(--c-red); color: var(--c-white); }
+.card.is-selected .card-meta { color: var(--c-grey-light); }
+
+.card-icon {
+  width: 36px; height: 36px;
+  border: 2px solid var(--c-ink);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+  transition: all var(--t-fast) var(--ease);
+}
+.card-icon svg { width: 22px; height: 22px; }
+
+.card-title {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 15px; line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+.card-meta {
+  font-size: 12.5px; color: var(--c-grey);
+  line-height: 1.4;
+}
+
+/* Number input row */
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.field { display: flex; flex-direction: column; gap: 8px; }
+.field-label {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;
+}
+.field-hint { font-size: 12.5px; color: var(--c-grey); }
+.field-input {
+  border: var(--border-heavy);
+  padding: 14px 16px;
+  font-family: var(--f-mono); font-size: 18px; font-weight: 500;
+  background: var(--c-white);
+  outline: none;
+  transition: border-color var(--t-fast) var(--ease);
+  -moz-appearance: textfield;
+}
+.field-input::-webkit-outer-spin-button,
+.field-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.field-input:focus { border-color: var(--c-red); }
+.field-suffix {
+  font-family: var(--f-mono); font-size: 12px; color: var(--c-grey);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+
+/* Live calc panel */
+.calc {
+  background: var(--c-ink);
+  color: var(--c-white);
+  padding: 24px 28px;
+  font-family: var(--f-mono);
+  position: relative;
+  overflow: hidden;
+}
+.calc::before {
+  content: 'LOAD CALCULATION';
+  position: absolute; top: 12px; right: 16px;
+  font-size: 9px; letter-spacing: 0.16em; color: var(--c-grey);
+}
+.calc-line {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 6px 0; font-size: 14px;
+}
+.calc-line span:first-child { color: var(--c-grey-light); }
+.calc-line span:last-child { font-weight: 500; }
+.calc-divider {
+  border-top: 1px solid var(--c-grey); margin: 8px 0 6px;
+  opacity: 0.4;
+}
+.calc-result {
+  margin-top: 4px; padding-top: 12px;
+  border-top: 2px solid var(--c-red);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.calc-result span:first-child {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--c-white);
+}
+.calc-result-value {
+  font-size: 28px; font-weight: 700; color: var(--c-red);
+}
+
+/* Radio rows */
+.radio-set { display: flex; flex-direction: column; gap: 0; border-top: var(--border-light); }
+.radio-row {
+  border-bottom: var(--border-light);
+  padding: 18px 20px;
+  display: flex; align-items: flex-start; gap: 16px;
+  cursor: pointer;
+  background: var(--c-white);
+  transition: background var(--t-fast) var(--ease);
+}
+.radio-row:hover { background: var(--c-cream); }
+.radio-row.is-selected { background: var(--c-cream); border-left: 4px solid var(--c-red); padding-left: 16px; }
+.radio-dot {
+  width: 18px; height: 18px;
+  border: 2px solid var(--c-ink);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 3px;
+  position: relative;
+  transition: all var(--t-fast) var(--ease);
+}
+.radio-row.is-selected .radio-dot { border-color: var(--c-red); }
+.radio-row.is-selected .radio-dot::after {
+  content: ''; position: absolute; inset: 3px;
+  background: var(--c-red); border-radius: 50%;
+}
+.radio-body { display: flex; flex-direction: column; gap: 4px; }
+.radio-title { font-family: var(--f-display); font-weight: 600; font-size: 15px; }
+.radio-desc { font-size: 13px; color: var(--c-grey); }
+
+/* Checkbox chips */
+.chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 8px;
+}
+.chip {
+  border: var(--border-heavy);
+  padding: 8px 14px;
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 13px; letter-spacing: 0.01em;
+  background: var(--c-white);
+  transition: all var(--t-fast) var(--ease);
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer;
+}
+.chip:hover { background: var(--c-cream); }
+.chip.is-selected { background: var(--c-ink); color: var(--c-white); border-color: var(--c-ink); }
+.chip.is-selected::before {
+  content: '✓'; font-family: var(--f-mono); font-size: 12px; color: var(--c-red);
+}
+
+/* Subsection header */
+.subhead {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--c-ink);
+  margin: 28px 0 14px;
+  display: flex; align-items: center; gap: 12px;
+}
+.subhead::before {
+  content: ''; display: block; width: 12px; height: 12px;
+  background: var(--c-red);
+}
+.subhead:first-of-type { margin-top: 0; }
+
+/* Select */
+.select-wrap {
+  position: relative;
+  display: inline-block;
+  width: 100%; max-width: 320px;
+}
+.select-wrap::after {
+  content: '▾';
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  font-family: var(--f-mono); color: var(--c-red);
+  pointer-events: none;
+}
+.select {
+  width: 100%;
+  border: var(--border-heavy);
+  padding: 14px 40px 14px 16px;
+  font-family: var(--f-mono); font-size: 15px; font-weight: 500;
+  background: var(--c-white);
+  appearance: none; -webkit-appearance: none;
+  cursor: pointer;
+}
+.select:focus { outline: none; border-color: var(--c-red); }
+
+/* ============================================================
+   Spec rail (the signature element)
+   ============================================================ */
+.spec-rail {
+  background: var(--c-cream);
+  padding: 32px 28px;
+  position: sticky; top: 80px;
+  align-self: start;
+  border-left: var(--border-light);
+}
+.spec-rail-eyebrow {
+  font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--c-grey);
+  margin-bottom: 4px;
+}
+.spec-rail-title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 22px; letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+.spec-rail-by {
+  font-family: var(--f-mono); font-size: 11px; color: var(--c-grey);
+  margin-bottom: 24px; padding-bottom: 16px;
+  border-bottom: 2px solid var(--c-ink);
+}
+.spec-rail-by strong { color: var(--c-red); }
+
+.spec-block {
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--c-grey-light);
+}
+.spec-block:last-of-type { border-bottom: 0; }
+.spec-label {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--c-grey);
+  margin-bottom: 6px;
+}
+.spec-value {
+  font-family: var(--f-mono); font-size: 14px; font-weight: 500;
+  color: var(--c-ink);
+  line-height: 1.4;
+  transition: opacity var(--t-base) var(--ease);
+}
+.spec-value.is-empty { color: var(--c-grey-light); font-style: italic; font-weight: 400; }
+.spec-value-sub { font-size: 12px; color: var(--c-grey); margin-top: 4px; }
+
+/* ============================================================
+   Nav
+   ============================================================ */
+.step-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad-step);
+  border-top: var(--border-heavy);
+  background: var(--c-cream);
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 24px;
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  border: var(--border-heavy);
+  background: var(--c-white);
+  transition: all var(--t-fast) var(--ease);
+  text-decoration: none;
+}
+.btn:hover:not(:disabled) { background: var(--c-ink); color: var(--c-white); }
+.btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.btn.is-primary { background: var(--c-red); color: var(--c-white); border-color: var(--c-red); }
+.btn.is-primary:hover:not(:disabled) { background: var(--c-ink); border-color: var(--c-ink); }
+.btn-arrow { font-family: var(--f-mono); font-size: 14px; }
+
+/* ============================================================
+   Step 7 results
+   ============================================================ */
+.results {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  border-top: var(--border-heavy);
+  border-left: var(--border-heavy);
+}
+.results-card {
+  border-right: var(--border-heavy);
+  border-bottom: var(--border-heavy);
+  padding: 28px;
+  background: var(--c-white);
+}
+.results-card.is-dark { background: var(--c-ink); color: var(--c-white); }
+.results-eyebrow {
+  font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--c-red);
+  margin-bottom: 10px;
+}
+.results-card.is-dark .results-eyebrow { color: var(--c-red); }
+.results-title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 22px; letter-spacing: -0.015em;
+  margin-bottom: 14px;
+}
+.results-body { font-size: 14.5px; color: var(--c-ink-soft); margin-bottom: 18px; }
+.results-card.is-dark .results-body { color: var(--c-grey-light); }
+.results-card .btn { width: 100%; justify-content: center; }
+.results-card.is-dark .btn { background: var(--c-red); color: var(--c-white); border-color: var(--c-red); }
+.results-card.is-dark .btn:hover { background: var(--c-white); color: var(--c-ink); border-color: var(--c-white); }
+
+/* Final spec display (full-width on step 7) */
+.final-spec {
+  border: var(--border-heavy);
+  background: var(--c-white);
+  padding: 0;
+  margin-top: 24px;
+}
+.final-spec-header {
+  background: var(--c-ink); color: var(--c-white);
+  padding: 18px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: var(--border-heavy);
+}
+.final-spec-header h3 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 18px; letter-spacing: -0.01em;
+}
+.final-spec-id { font-family: var(--f-mono); font-size: 12px; color: var(--c-grey-light); }
+.final-spec-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+}
+.final-spec-block {
+  padding: 22px 24px;
+  border-right: var(--border-light);
+  border-bottom: var(--border-light);
+}
+.final-spec-block:nth-child(2n) { border-right: 0; }
+.final-spec-label {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--c-grey); margin-bottom: 8px;
+}
+.final-spec-value {
+  font-family: var(--f-mono); font-size: 15px; font-weight: 500;
+  color: var(--c-ink);
+}
+.final-spec-sub {
+  font-size: 12.5px; color: var(--c-grey); margin-top: 4px;
+  font-family: var(--f-body);
+}
+
+/* Quote form */
+.quote-form {
+  display: none;
+  border: var(--border-heavy);
+  background: var(--c-white);
+  padding: 28px;
+  margin-top: 24px;
+}
+.quote-form.is-open { display: block; animation: stepIn var(--t-base) var(--ease); }
+.quote-form h3 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 20px; letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.quote-form p { color: var(--c-grey); margin-bottom: 20px; font-size: 14px; }
+.quote-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.quote-grid .field-full { grid-column: 1 / -1; }
+.quote-label {
+  font-family: var(--f-display); font-weight: 600;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  display: block; margin-bottom: 6px;
+}
+.quote-label span { color: var(--c-grey); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.quote-input, .quote-textarea {
+  width: 100%;
+  border: var(--border-light);
+  padding: 10px 12px;
+  font-family: var(--f-body); font-size: 14px;
+  background: var(--c-cream);
+  outline: none;
+  transition: border-color var(--t-fast) var(--ease);
+}
+.quote-input:focus, .quote-textarea:focus { border-color: var(--c-red); }
+.quote-textarea { min-height: 90px; resize: vertical; }
+.quote-submit { margin-top: 20px; }
+.quote-success {
+  display: none;
+  padding: 20px; border: var(--border-heavy);
+  background: var(--c-cream);
+  border-left: 6px solid var(--c-red);
+  margin-top: 16px;
+}
+.quote-success.is-open { display: block; }
+.quote-success strong { font-family: var(--f-display); font-size: 14px; }
+
+/* Footer */
+.site-footer {
+  max-width: 1280px; margin: 0 auto;
+  padding: 32px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 24px;
+  font-family: var(--f-mono); font-size: 12px; color: var(--c-grey);
+  text-transform: uppercase; letter-spacing: 0.08em;
+}
+.site-footer a { color: var(--c-grey); text-decoration: none; }
+.site-footer a:hover { color: var(--c-red); }
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 960px) {
+  .grid { grid-template-columns: 1fr; }
+  .spec-rail {
+    position: static;
+    border-left: 0;
+    border-top: var(--border-heavy);
+  }
+  .progress-step { padding: 10px 8px; }
+  .progress-label { font-size: 9px; }
+  .progress-num { font-size: 10px; }
+}
+@media (max-width: 720px) {
+  :root { --pad-step: 24px; }
+  .site-header-inner { padding: 14px 20px; }
+  .intro { padding: 40px 24px 44px; }
+  .header-phone-num { font-size: 13px; }
+  .progress { grid-template-columns: repeat(7, 1fr); }
+  .progress-label { display: none; }
+  .progress-step { padding: 12px 4px; text-align: center; }
+  .progress-num { text-align: center; }
+  .field-row { grid-template-columns: 1fr; gap: 18px; }
+  .cards { grid-template-columns: repeat(2, 1fr); }
+  .results { grid-template-columns: 1fr; }
+  .results-card { border-right: 0; }
+  .final-spec-grid { grid-template-columns: 1fr; }
+  .final-spec-block { border-right: 0; }
+  .quote-grid { grid-template-columns: 1fr; }
+}
+
+/* Print — make the final spec card the printable artifact */
+@media print {
+  .site-header, .intro, .progress, .step-nav, .why-toggle, .quote-form, .site-footer,
+  .step:not(.is-active), .spec-rail, .results-card .btn { display: none !important; }
+  body { background: white; }
+  .final-spec { border: 1px solid #000; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="#">
+      <div class="brand-mark">AIE</div>
+      <div class="brand-text">
+        <div class="brand-name">AIE Caster Selector</div>
+        <div class="brand-tag">The Trusted Industry Advisor</div>
+      </div>
+    </a>
+    <a class="header-phone" href="tel:+18002292431">
+      <div>
+        <div class="header-phone-label">Talk to a specialist</div>
+        <span class="header-phone-num">(800) 229-2431</span>
+      </div>
+    </a>
+  </div>
+</header>
+
+<!-- ============================================================
+     INTRO
+     ============================================================ -->
+<section class="intro">
+  <div class="intro-inner">
+    <div class="intro-eyebrow">Free Tool · 7 Steps · ~3 Minutes</div>
+    <h1 class="intro-title">Spec the right caster <em>without guessing.</em></h1>
+    <p class="intro-sub">Answer seven structured questions about your load, floor, mounting, and duty. We build a defensible specification you can quote against — capacity math shown live, no email required to see the result.</p>
+    <div class="intro-meta">
+      <div><strong>Master distributor</strong> · 35+ brands</div>
+      <div><strong>Since 1969</strong> · 200+ yrs combined experience</div>
+      <div><strong>$2.5M+ inventory</strong> · Norcross, GA</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SELECTOR
+     ============================================================ -->
+<main class="selector" id="selector">
+
+  <!-- Progress -->
+  <div class="progress" id="progress" role="tablist" aria-label="Selector progress"></div>
+
+  <!-- Grid: step + spec rail -->
+  <div class="grid">
+
+    <!-- Step pane -->
+    <div class="step-pane">
+
+      <!-- ====== STEP 1: APPLICATION ====== -->
+      <section class="step is-active" data-step="1">
+        <div class="step-header"><div class="step-num">01</div></div>
+        <h2 class="step-title">What's getting wheels?</h2>
+        <p class="step-desc">Tell us the equipment so we can tune the rest of the spec to your duty cycle. You can pick "something else" if nothing fits.</p>
+        <button class="why-toggle" data-why="1" aria-expanded="false">+ Why we ask</button>
+        <div class="why-content" data-why-content="1">
+          <strong>Application sets your starting safety factor.</strong> A workbench loaded once and rolled rarely tolerates a different spec than a tow-cart pulled by a forklift eight hours a day. We use this to bias wheel material, bearing type, and capacity headroom — not to limit your options.
+        </div>
+        <div class="cards" data-cards="application">
+          <button class="card" data-value="cart" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="14" height="10"/><circle cx="7" cy="19" r="2"/><circle cx="15" cy="19" r="2"/><path d="M17 8h4l-2 6"/></svg></div>
+            <div class="card-title">Cart or dolly</div>
+            <div class="card-meta">Tow, push, platform, utility</div>
+          </button>
+          <button class="card" data-value="workbench" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="3"/><line x1="6" y1="11" x2="6" y2="20"/><line x1="18" y1="11" x2="18" y2="20"/><line x1="3" y1="6" x2="21" y2="6"/></svg></div>
+            <div class="card-title">Workbench or table</div>
+            <div class="card-meta">Stationary use, occasional moves</div>
+          </button>
+          <button class="card" data-value="rack" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/></svg></div>
+            <div class="card-title">Storage rack / shelving</div>
+            <div class="card-meta">Mobile shelving, parts racks</div>
+          </button>
+          <button class="card" data-value="equipment" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="12"/><path d="M7 17v3M17 17v3M3 9h18"/></svg></div>
+            <div class="card-title">Industrial equipment</div>
+            <div class="card-meta">Machinery, fixtures, jigs</div>
+          </button>
+          <button class="card" data-value="specialty" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 L4 8 V20 H20 V8 Z"/><path d="M9 14h6M12 11v6"/></svg></div>
+            <div class="card-title">Medical / food / cleanroom</div>
+            <div class="card-meta">FDA, NSF, or cleanroom rated</div>
+          </button>
+          <button class="card" data-value="replacement" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v6h-6"/></svg></div>
+            <div class="card-title">Replacing a worn caster</div>
+            <div class="card-meta">Match an existing spec</div>
+          </button>
+          <button class="card" data-value="other" type="button">
+            <div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 9a3 3 0 1 1 4.5 2.6c-1 .6-1.5 1.2-1.5 2.4"/><line x1="12" y1="17" x2="12" y2="17.01"/></svg></div>
+            <div class="card-title">Something else</div>
+            <div class="card-meta">Custom or one-off application</div>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====== STEP 2: LOAD ====== -->
+      <section class="step" data-step="2">
+        <div class="step-header"><div class="step-num">02</div></div>
+        <h2 class="step-title">How heavy is the load?</h2>
+        <p class="step-desc">Enter the total loaded weight (equipment + cargo) and the number of casters you'll use. We'll calculate capacity per caster with a standard safety factor.</p>
+        <button class="why-toggle" data-why="2" aria-expanded="false">+ Why the safety factor matters</button>
+        <div class="why-content" data-why-content="2">
+          <strong>One caster may briefly carry more than its share.</strong> On uneven floors, in turns, or going over thresholds, weight transfers — sometimes onto three wheels instead of four. The industry rule is total load ÷ (caster count − 1), or for heavier duty, total ÷ caster count × 1.33. We use 1.33 by default. If you're rolling daily on rough floors, call us — a higher factor may be warranted.
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label" for="load-total">Total loaded weight</label>
+            <input class="field-input" id="load-total" type="number" min="0" step="10" placeholder="e.g. 2000">
+            <div class="field-hint">Equipment + cargo combined, in pounds</div>
+          </div>
+          <div class="field">
+            <label class="field-label" for="caster-count">Number of casters</label>
+            <input class="field-input" id="caster-count" type="number" min="3" max="12" step="1" value="4">
+            <div class="field-hint">Most carts use 4. Heavier equipment may use 6 or 8.</div>
+          </div>
+        </div>
+
+        <div class="calc" id="calc-panel">
+          <div class="calc-line"><span>Total load</span><span id="calc-total">— lb</span></div>
+          <div class="calc-line"><span>Caster count</span><span id="calc-count">—</span></div>
+          <div class="calc-divider"></div>
+          <div class="calc-line"><span>Per caster (raw)</span><span id="calc-raw">— lb</span></div>
+          <div class="calc-line"><span>Safety factor</span><span>× 1.33</span></div>
+          <div class="calc-result"><span>Capacity required</span><span class="calc-result-value" id="calc-required">— lb</span></div>
+        </div>
+      </section>
+
+      <!-- ====== STEP 3: ENVIRONMENT ====== -->
+      <section class="step" data-step="3">
+        <div class="step-header"><div class="step-num">03</div></div>
+        <h2 class="step-title">Where will it roll?</h2>
+        <p class="step-desc">Floor and environment drive wheel material more than any other variable. Be honest about the worst conditions, not the average ones.</p>
+        <button class="why-toggle" data-why="3" aria-expanded="false">+ How floor type changes the spec</button>
+        <div class="why-content" data-why-content="3">
+          <strong>The floor wins.</strong> A soft polyurethane wheel on rough concrete will flat-spot in months; a hard phenolic on tile will mark and chip. Match wheel hardness inversely to floor hardness for protection, or directly for capacity. We'll bias the recommendation accordingly.
+        </div>
+
+        <div class="subhead">Primary floor surface</div>
+        <div class="radio-set" data-radio="floor">
+          <button class="radio-row" data-value="smooth-concrete" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Smooth or sealed concrete</div><div class="radio-desc">Warehouse floors, polished slabs</div></div>
+          </button>
+          <button class="radio-row" data-value="rough-concrete" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Rough or expansion-jointed concrete</div><div class="radio-desc">Older plant floors, loading docks</div></div>
+          </button>
+          <button class="radio-row" data-value="tile" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Tile, vinyl, or epoxy</div><div class="radio-desc">Hospitals, food service, retail</div></div>
+          </button>
+          <button class="radio-row" data-value="wood" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Wood or laminate</div><div class="radio-desc">Showrooms, light-duty interiors</div></div>
+          </button>
+          <button class="radio-row" data-value="carpet" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Carpet</div><div class="radio-desc">Office furniture, AV equipment</div></div>
+          </button>
+          <button class="radio-row" data-value="grating" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Metal grating or expanded mesh</div><div class="radio-desc">Mezzanines, catwalks</div></div>
+          </button>
+          <button class="radio-row" data-value="outdoor-paved" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Outdoor pavement</div><div class="radio-desc">Asphalt, parking lots, yards</div></div>
+          </button>
+          <button class="radio-row" data-value="outdoor-rough" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Outdoor uneven / gravel</div><div class="radio-desc">Construction sites, unpaved yards</div></div>
+          </button>
+        </div>
+
+        <div class="subhead">Indoor or outdoor</div>
+        <div class="chips" data-chips-single="environment">
+          <button class="chip" data-value="indoor" type="button">Indoor only</button>
+          <button class="chip" data-value="outdoor" type="button">Outdoor only</button>
+          <button class="chip" data-value="both" type="button">Both</button>
+        </div>
+
+        <div class="subhead">Temperature range</div>
+        <div class="chips" data-chips-single="temp">
+          <button class="chip" data-value="freezer" type="button">Freezer (-20°F and below)</button>
+          <button class="chip" data-value="cold" type="button">Cold (-20° to 40°F)</button>
+          <button class="chip" data-value="normal" type="button">Normal ambient</button>
+          <button class="chip" data-value="warm" type="button">Warm (up to 180°F)</button>
+          <button class="chip" data-value="high-heat" type="button">High heat (180°F+)</button>
+        </div>
+
+        <div class="subhead">Exposure (select all that apply)</div>
+        <div class="chips" data-chips-multi="exposure">
+          <button class="chip" data-value="none" type="button">None / dry</button>
+          <button class="chip" data-value="water" type="button">Water / washdown</button>
+          <button class="chip" data-value="chemicals" type="button">Chemicals / solvents</button>
+          <button class="chip" data-value="oils" type="button">Oils / grease</button>
+          <button class="chip" data-value="debris" type="button">Metal chips / debris</button>
+        </div>
+      </section>
+
+      <!-- ====== STEP 4: MOUNTING ====== -->
+      <section class="step" data-step="4">
+        <div class="step-header"><div class="step-num">04</div></div>
+        <h2 class="step-title">How does the caster attach?</h2>
+        <p class="step-desc">Mount type is dictated by your equipment, not preference. If you're not sure, choose "help me figure it out" — we'll guide you on the call.</p>
+        <button class="why-toggle" data-why="4" aria-expanded="false">+ Plate vs. stem, in 30 seconds</button>
+        <div class="why-content" data-why-content="4">
+          <strong>Top plates</strong> bolt to a flat surface and carry the most load — default for carts and equipment. <strong>Threaded and grip-ring stems</strong> screw or press into a tube or socket — common on chairs, dollies, and tubular frames. <strong>Expanding adapters</strong> wedge into the inside of a tube. <strong>Bolt-hole</strong> uses a single through-bolt. Mount type doesn't affect capacity directly, but mismatched mounts are the #1 reason replacements don't fit.
+        </div>
+        <div class="radio-set" data-radio="mounting">
+          <button class="radio-row" data-value="top-plate" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Top plate</div><div class="radio-desc">Flat plate bolted to a frame — the industry default</div></div>
+          </button>
+          <button class="radio-row" data-value="threaded-stem" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Threaded stem</div><div class="radio-desc">Screws into a threaded receiver — chairs, light dollies</div></div>
+          </button>
+          <button class="radio-row" data-value="grip-ring" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Grip-ring stem</div><div class="radio-desc">Press-fit into a tube — office chairs, hospital carts</div></div>
+          </button>
+          <button class="radio-row" data-value="expanding" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Expanding adapter</div><div class="radio-desc">Wedges inside a round, square, or rectangular tube</div></div>
+          </button>
+          <button class="radio-row" data-value="bolt-hole" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Bolt-hole / hollow kingpin</div><div class="radio-desc">Single through-bolt mount</div></div>
+          </button>
+          <button class="radio-row" data-value="unsure" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Help me figure it out</div><div class="radio-desc">We'll walk you through it on the call</div></div>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====== STEP 5: MOBILITY ====== -->
+      <section class="step" data-step="5">
+        <div class="step-header"><div class="step-num">05</div></div>
+        <h2 class="step-title">How should it move?</h2>
+        <p class="step-desc">Caster configuration controls tracking and turning. Brakes control parking and runaway prevention.</p>
+        <button class="why-toggle" data-why="5" aria-expanded="false">+ Swivel vs. rigid pattern</button>
+        <div class="why-content" data-why-content="5">
+          <strong>2 swivel + 2 rigid</strong> tracks straight and steers from the swivel end — best for tow lines, push carts, and stable handling. <strong>4 swivel</strong> turns in place — best for tight aisles, but harder to push straight. <strong>Diamond pattern</strong> (1 swivel + 4 rigid + 1 swivel on six-wheel rigs) pivots around the center rigid for long carts.
+        </div>
+
+        <div class="subhead">Caster arrangement</div>
+        <div class="radio-set" data-radio="mobility">
+          <button class="radio-row" data-value="2sw-2rg" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">2 swivel + 2 rigid</div><div class="radio-desc">Tracks straight, steers from one end (recommended for most carts)</div></div>
+          </button>
+          <button class="radio-row" data-value="4sw" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">4 swivel</div><div class="radio-desc">Maximum maneuverability, harder to track straight</div></div>
+          </button>
+          <button class="radio-row" data-value="diamond" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Diamond (6-wheel)</div><div class="radio-desc">For long carts that need a tight pivot point</div></div>
+          </button>
+          <button class="radio-row" data-value="custom-mobility" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Other / not sure</div><div class="radio-desc">We'll suggest a layout on the call</div></div>
+          </button>
+        </div>
+
+        <div class="subhead">Brake requirement</div>
+        <div class="radio-set" data-radio="brakes">
+          <button class="radio-row" data-value="none" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">No brakes</div><div class="radio-desc">Cart always rolls or is otherwise secured</div></div>
+          </button>
+          <button class="radio-row" data-value="wheel-brake" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Wheel brake (toe-lock)</div><div class="radio-desc">Stops wheel rotation — most common</div></div>
+          </button>
+          <button class="radio-row" data-value="total-lock" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Total lock</div><div class="radio-desc">Locks both wheel and swivel — for stable parking</div></div>
+          </button>
+          <button class="radio-row" data-value="directional-lock" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Directional lock</div><div class="radio-desc">Locks swivel straight for towing</div></div>
+          </button>
+        </div>
+      </section>
+
+      <!-- ====== STEP 6: DUTY ====== -->
+      <section class="step" data-step="6">
+        <div class="step-header"><div class="step-num">06</div></div>
+        <h2 class="step-title">Duty cycle and special requirements</h2>
+        <p class="step-desc">How hard the caster works — and any compliance or industry constraints we need to honor.</p>
+        <button class="why-toggle" data-why="6" aria-expanded="false">+ Duty cycle: why it changes the bearing</button>
+        <div class="why-content" data-why-content="6">
+          <strong>Bearings and bushings are sized to duty cycle, not just load.</strong> A caster pushed an hour a day on a service cart can run a plain delrin bushing; one running eight hours on a tow line needs sealed precision ball bearings. Wrong bearing = early failure regardless of capacity rating.
+        </div>
+
+        <div class="subhead">Use frequency</div>
+        <div class="radio-set" data-radio="duty">
+          <button class="radio-row" data-value="occasional" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Occasional</div><div class="radio-desc">Rolled once a day or less, short distances</div></div>
+          </button>
+          <button class="radio-row" data-value="regular" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Regular</div><div class="radio-desc">Multiple times daily, moderate distances</div></div>
+          </button>
+          <button class="radio-row" data-value="continuous" type="button">
+            <div class="radio-dot"></div>
+            <div class="radio-body"><div class="radio-title">Continuous / heavy-duty</div><div class="radio-desc">Tow line, conveyor, 6+ hours daily use</div></div>
+          </button>
+        </div>
+
+        <div class="subhead">Special requirements (select all that apply)</div>
+        <div class="chips" data-chips-multi="requirements">
+          <button class="chip" data-value="fda" type="button">FDA / food contact</button>
+          <button class="chip" data-value="nsf" type="button">NSF rated</button>
+          <button class="chip" data-value="cleanroom" type="button">Cleanroom</button>
+          <button class="chip" data-value="esd" type="button">ESD / conductive</button>
+          <button class="chip" data-value="non-marking" type="button">Non-marking</button>
+          <button class="chip" data-value="quiet" type="button">Quiet operation</button>
+          <button class="chip" data-value="none" type="button">None</button>
+        </div>
+      </section>
+
+      <!-- ====== STEP 7: RESULTS ====== -->
+      <section class="step" data-step="7">
+        <div class="step-header"><div class="step-num">07</div></div>
+        <h2 class="step-title" id="results-title">Your specification</h2>
+        <p class="step-desc" id="results-desc">Based on your answers, here's the caster spec we'd recommend. Call to confirm and order, or request a written quote with this specification attached.</p>
+
+        <!-- Final spec card -->
+        <div class="final-spec" id="final-spec">
+          <div class="final-spec-header">
+            <h3>RECOMMENDED SPECIFICATION</h3>
+            <div class="final-spec-id" id="spec-id">SPEC-—————</div>
+          </div>
+          <div class="final-spec-grid" id="final-spec-grid">
+            <!-- populated by JS -->
+          </div>
+        </div>
+
+        <!-- CTAs -->
+        <div class="results" style="margin-top: 24px;">
+          <div class="results-card is-dark">
+            <div class="results-eyebrow">Fastest path</div>
+            <div class="results-title">Call a specialist now</div>
+            <p class="results-body">Read this spec to our team and we'll confirm it, check stock, and quote you on the call. Most orders ship within one business day.</p>
+            <a class="btn is-primary" href="tel:+18002292431">(800) 229-2431 →</a>
+          </div>
+          <div class="results-card">
+            <div class="results-eyebrow">Prefer writing</div>
+            <div class="results-title">Get a quote by email</div>
+            <p class="results-body">Send this specification to our quote team. We'll respond with availability, pricing, and any spec questions within one business day.</p>
+            <button class="btn" id="open-quote-form" type="button">Request a written quote</button>
+          </div>
+        </div>
+
+        <!-- Quote form -->
+        <form class="quote-form" id="quote-form" novalidate>
+          <h3>Request a quote</h3>
+          <p>Your spec is attached automatically. The starred fields are required; everything else helps us route the quote faster.</p>
+          <div class="quote-grid">
+            <div>
+              <label class="quote-label" for="q-name">Name *</label>
+              <input class="quote-input" id="q-name" type="text" required>
+            </div>
+            <div>
+              <label class="quote-label" for="q-company">Company <span>(optional)</span></label>
+              <input class="quote-input" id="q-company" type="text">
+            </div>
+            <div>
+              <label class="quote-label" for="q-email">Email *</label>
+              <input class="quote-input" id="q-email" type="email" required>
+            </div>
+            <div>
+              <label class="quote-label" for="q-phone">Phone <span>(optional)</span></label>
+              <input class="quote-input" id="q-phone" type="tel">
+            </div>
+            <div class="field-full">
+              <label class="quote-label" for="q-qty">Quantity needed <span>(optional)</span></label>
+              <input class="quote-input" id="q-qty" type="text" placeholder="e.g. 8 casters, or 2 cart sets">
+            </div>
+            <div class="field-full">
+              <label class="quote-label" for="q-notes">Notes for our team <span>(optional)</span></label>
+              <textarea class="quote-textarea" id="q-notes" placeholder="Anything we should know — timeline, end customer, existing caster brand, etc."></textarea>
+            </div>
+          </div>
+          <button class="btn is-primary quote-submit" type="submit">Send quote request →</button>
+          <div class="quote-success" id="quote-success">
+            <strong>Quote request sent.</strong><br>
+            We'll respond within one business day. For urgent needs, call (800) 229-2431.
+          </div>
+        </form>
+      </section>
+
+    </div><!-- /step-pane -->
+
+    <!-- Spec rail -->
+    <aside class="spec-rail" id="spec-rail">
+      <div class="spec-rail-eyebrow">Live specification</div>
+      <div class="spec-rail-title">Your spec, building</div>
+      <div class="spec-rail-by">Issued by <strong>AIE</strong> · since 1969</div>
+
+      <div class="spec-block">
+        <div class="spec-label">Application</div>
+        <div class="spec-value is-empty" data-spec="application">Awaiting input</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Capacity required</div>
+        <div class="spec-value is-empty" data-spec="capacity">Awaiting load</div>
+        <div class="spec-value-sub" data-spec="capacity-sub"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Wheel material</div>
+        <div class="spec-value is-empty" data-spec="wheel">—</div>
+        <div class="spec-value-sub" data-spec="wheel-sub"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Wheel size</div>
+        <div class="spec-value is-empty" data-spec="size">—</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Mount</div>
+        <div class="spec-value is-empty" data-spec="mount">—</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Mobility</div>
+        <div class="spec-value is-empty" data-spec="mobility-out">—</div>
+        <div class="spec-value-sub" data-spec="brakes-out"></div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Bearing / duty</div>
+        <div class="spec-value is-empty" data-spec="bearing">—</div>
+      </div>
+      <div class="spec-block">
+        <div class="spec-label">Suggested series</div>
+        <div class="spec-value is-empty" data-spec="series">—</div>
+      </div>
+    </aside>
+
+  </div><!-- /grid -->
+
+  <!-- Step nav -->
+  <div class="step-nav">
+    <button class="btn" id="btn-back" disabled><span class="btn-arrow">←</span> Back</button>
+    <button class="btn is-primary" id="btn-next">Next <span class="btn-arrow">→</span></button>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div>AIE Company, Inc. · 6670 Best Friend Rd, Norcross, GA</div>
+  <div>
+    <a href="tel:+18002292431">(800) 229-2431</a> ·
+    <a href="mailto:nburke@aiecasters.com">Email</a> ·
+    <a href="https://www.aiecasters.com" target="_blank" rel="noopener">aiecasters.com</a>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   STATE
+   ============================================================ */
+const STATE = {
+  step: 1,
+  application: null,
+  totalLoad: null,
+  casterCount: 4,
+  floor: null,
+  environment: null,
+  temp: null,
+  exposure: [],
+  mounting: null,
+  mobility: null,
+  brakes: null,
+  duty: null,
+  requirements: [],
+};
+
+const STEPS = [
+  { num: 1, key: 'application', label: 'Application' },
+  { num: 2, key: 'load',        label: 'Load' },
+  { num: 3, key: 'environment', label: 'Environment' },
+  { num: 4, key: 'mounting',    label: 'Mounting' },
+  { num: 5, key: 'mobility',    label: 'Mobility' },
+  { num: 6, key: 'duty',        label: 'Duty' },
+  { num: 7, key: 'results',     label: 'Spec' },
+];
+
+/* ============================================================
+   PROGRESS
+   ============================================================ */
+function renderProgress() {
+  const el = document.getElementById('progress');
+  el.innerHTML = STEPS.map(s => {
+    const isActive = s.num === STATE.step;
+    const isDone   = s.num < STATE.step;
+    const cls = ['progress-step'];
+    if (isActive) cls.push('is-active');
+    if (isDone)   cls.push('is-done');
+    return `<div class="${cls.join(' ')}" role="tab" data-jump="${s.num}" tabindex="${isDone ? 0 : -1}">
+      <div class="progress-num">0${s.num}</div>
+      <div class="progress-label">${s.label}</div>
+    </div>`;
+  }).join('');
+  el.querySelectorAll('.progress-step.is-done').forEach(node => {
+    node.addEventListener('click', () => goToStep(parseInt(node.dataset.jump, 10)));
+    node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToStep(parseInt(node.dataset.jump, 10)); }});
+  });
+}
+
+/* ============================================================
+   STEP DISPLAY
+   ============================================================ */
+function renderStep() {
+  document.querySelectorAll('.step').forEach(s => {
+    s.classList.toggle('is-active', parseInt(s.dataset.step, 10) === STATE.step);
+  });
+  // Nav
+  document.getElementById('btn-back').disabled = STATE.step === 1;
+  const next = document.getElementById('btn-next');
+  if (STATE.step === STEPS.length) {
+    next.style.display = 'none';
+  } else {
+    next.style.display = '';
+    next.disabled = !isStepValid(STATE.step);
+    next.innerHTML = STATE.step === STEPS.length - 1
+      ? 'See my spec <span class="btn-arrow">→</span>'
+      : 'Next <span class="btn-arrow">→</span>';
+  }
+  // Scroll selector into view on advance
+  document.getElementById('selector').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function isStepValid(n) {
+  switch (n) {
+    case 1: return !!STATE.application;
+    case 2: return STATE.totalLoad > 0 && STATE.casterCount >= 3;
+    case 3: return !!STATE.floor && !!STATE.environment && !!STATE.temp;
+    case 4: return !!STATE.mounting;
+    case 5: return !!STATE.mobility && !!STATE.brakes;
+    case 6: return !!STATE.duty;
+    case 7: return true;
+  }
+  return false;
+}
+
+function goToStep(n) {
+  if (n < 1 || n > STEPS.length) return;
+  if (n > STATE.step && !isStepValid(STATE.step)) return;
+  STATE.step = n;
+  if (n === 7) computeAndRenderFinal();
+  renderProgress();
+  renderStep();
+}
+
+document.getElementById('btn-next').addEventListener('click', () => goToStep(STATE.step + 1));
+document.getElementById('btn-back').addEventListener('click', () => goToStep(STATE.step - 1));
+
+/* ============================================================
+   WHY toggles
+   ============================================================ */
+document.querySelectorAll('.why-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const k = btn.dataset.why;
+    const content = document.querySelector(`[data-why-content="${k}"]`);
+    const open = content.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.textContent = open ? '− Hide' : '+ Why we ask';
+  });
+});
+
+/* ============================================================
+   CARDS (single-select)
+   ============================================================ */
+document.querySelectorAll('[data-cards]').forEach(grid => {
+  const key = grid.dataset.cards;
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => {
+      grid.querySelectorAll('.card').forEach(c => c.classList.remove('is-selected'));
+      card.classList.add('is-selected');
+      STATE[key] = card.dataset.value;
+      updateSpec();
+      document.getElementById('btn-next').disabled = !isStepValid(STATE.step);
+    });
+  });
+});
+
+/* ============================================================
+   RADIO rows (single-select)
+   ============================================================ */
+document.querySelectorAll('[data-radio]').forEach(set => {
+  const key = set.dataset.radio;
+  set.querySelectorAll('.radio-row').forEach(row => {
+    row.addEventListener('click', () => {
+      set.querySelectorAll('.radio-row').forEach(r => r.classList.remove('is-selected'));
+      row.classList.add('is-selected');
+      STATE[key] = row.dataset.value;
+      updateSpec();
+      document.getElementById('btn-next').disabled = !isStepValid(STATE.step);
+    });
+  });
+});
+
+/* ============================================================
+   CHIPS — single
+   ============================================================ */
+document.querySelectorAll('[data-chips-single]').forEach(group => {
+  const key = group.dataset.chipsSingle;
+  group.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      group.querySelectorAll('.chip').forEach(c => c.classList.remove('is-selected'));
+      chip.classList.add('is-selected');
+      STATE[key] = chip.dataset.value;
+      updateSpec();
+      document.getElementById('btn-next').disabled = !isStepValid(STATE.step);
+    });
+  });
+});
+
+/* ============================================================
+   CHIPS — multi
+   ============================================================ */
+document.querySelectorAll('[data-chips-multi]').forEach(group => {
+  const key = group.dataset.chipsMulti;
+  group.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const val = chip.dataset.value;
+      if (val === 'none') {
+        // Reset others if 'none' clicked
+        group.querySelectorAll('.chip').forEach(c => c.classList.remove('is-selected'));
+        chip.classList.add('is-selected');
+        STATE[key] = ['none'];
+      } else {
+        // Deselect 'none' if other selected
+        const noneChip = group.querySelector('[data-value="none"]');
+        if (noneChip) noneChip.classList.remove('is-selected');
+        chip.classList.toggle('is-selected');
+        STATE[key] = Array.from(group.querySelectorAll('.chip.is-selected')).map(c => c.dataset.value);
+      }
+      updateSpec();
+    });
+  });
+});
+
+/* ============================================================
+   LOAD inputs
+   ============================================================ */
+const loadInput = document.getElementById('load-total');
+const countInput = document.getElementById('caster-count');
+
+function updateLoadCalc() {
+  const total = parseFloat(loadInput.value) || 0;
+  const count = parseInt(countInput.value, 10) || 0;
+  STATE.totalLoad = total > 0 ? total : null;
+  STATE.casterCount = count > 0 ? count : null;
+
+  const fmt = n => n > 0 ? n.toLocaleString() : '—';
+
+  document.getElementById('calc-total').textContent = total > 0 ? `${fmt(total)} lb` : '— lb';
+  document.getElementById('calc-count').textContent = count > 0 ? count : '—';
+
+  if (total > 0 && count > 0) {
+    const raw = total / count;
+    const required = Math.ceil(raw * 1.33);
+    document.getElementById('calc-raw').textContent = `${Math.round(raw).toLocaleString()} lb`;
+    document.getElementById('calc-required').textContent = `${required.toLocaleString()} lb`;
+  } else {
+    document.getElementById('calc-raw').textContent = '— lb';
+    document.getElementById('calc-required').textContent = '— lb';
+  }
+
+  updateSpec();
+  document.getElementById('btn-next').disabled = !isStepValid(STATE.step);
+}
+loadInput.addEventListener('input', updateLoadCalc);
+countInput.addEventListener('input', updateLoadCalc);
+
+/* ============================================================
+   RECOMMENDATION ENGINE
+   ============================================================ */
+function recommend(s) {
+  // Capacity
+  const perCaster = (s.totalLoad && s.casterCount) ? Math.ceil((s.totalLoad / s.casterCount) * 1.33) : null;
+
+  // Load tier
+  let tier = null;
+  if (perCaster !== null) {
+    if (perCaster < 200) tier = 'light';
+    else if (perCaster < 500) tier = 'medium';
+    else if (perCaster < 1200) tier = 'heavy';
+    else if (perCaster < 5000) tier = 'extra-heavy';
+    else tier = 'custom';
+  }
+
+  // Wheel material
+  let wheelMat = null, wheelSub = null;
+  const reqs = s.requirements || [];
+
+  if (tier === 'custom') {
+    wheelMat = 'CUSTOM — call us';
+    wheelSub = 'Above 5,000 lb per caster requires engineered selection';
+  } else if (reqs.includes('cleanroom')) {
+    wheelMat = 'Thermoplastic rubber on stainless';
+    wheelSub = 'Non-shedding, autoclave-tolerant';
+  } else if (reqs.includes('fda') || reqs.includes('nsf')) {
+    wheelMat = 'White polyurethane on stainless';
+    wheelSub = 'NSF/FDA-compliant, washdown rated';
+  } else if (reqs.includes('esd')) {
+    wheelMat = 'Conductive polyurethane on poly hub';
+    wheelSub = 'Volume resistivity ≤ 10⁵ ohm';
+  } else if (s.temp === 'freezer' || s.temp === 'cold') {
+    wheelMat = 'Polyolefin or cold-rated TPR';
+    wheelSub = 'Stays flexible to -45°F';
+  } else if (s.temp === 'high-heat') {
+    wheelMat = 'Phenolic or high-temp glass-filled nylon';
+    wheelSub = 'Stable to 475°F continuous';
+  } else if (s.floor === 'outdoor-rough') {
+    wheelMat = 'Pneumatic rubber on steel rim';
+    wheelSub = 'Cushions impact on uneven terrain';
+  } else if (s.floor === 'carpet' || s.floor === 'wood') {
+    wheelMat = 'Soft tread polyurethane';
+    wheelSub = 'Floor-protective, non-marking';
+  } else if (s.floor === 'grating') {
+    wheelMat = 'Phenolic or hard nylon';
+    wheelSub = 'Won\'t deflect into grating gaps';
+  } else if ((s.exposure||[]).includes('chemicals') || (s.exposure||[]).includes('oils')) {
+    wheelMat = 'Polyurethane on poly hub';
+    wheelSub = 'Chemical-resistant, oil-tolerant';
+  } else if (tier === 'heavy' || tier === 'extra-heavy') {
+    wheelMat = 'Polyurethane on cast iron';
+    wheelSub = 'Heavy-duty default — quiet, durable';
+  } else if (tier === 'light') {
+    wheelMat = 'TPR or soft polyurethane';
+    wheelSub = 'Quiet, non-marking, easy roll';
+  } else {
+    wheelMat = 'Polyurethane on cast iron';
+    wheelSub = 'Industry-standard for indoor industrial';
+  }
+
+  // Wheel size
+  let size = null;
+  if (perCaster !== null) {
+    if (tier === 'light') size = '4" diameter × 1-1/4" tread';
+    else if (tier === 'medium') size = '5" diameter × 2" tread';
+    else if (tier === 'heavy') size = '6" diameter × 2" tread';
+    else if (tier === 'extra-heavy') size = '8" diameter × 2-1/2" tread';
+    else if (tier === 'custom') size = 'Custom (10"+ diameter)';
+  }
+
+  // Mount
+  let mountOut = null;
+  const mountMap = {
+    'top-plate':      'Top plate, 4" × 4-1/2" (BHP 2-5/8" × 3-5/8")',
+    'threaded-stem':  'Threaded stem (size TBD on call)',
+    'grip-ring':      'Grip-ring stem (size TBD on call)',
+    'expanding':      'Expanding adapter (tube ID TBD on call)',
+    'bolt-hole':      'Bolt-hole / hollow kingpin',
+    'unsure':         'Mount type to be confirmed on call',
+  };
+  if (s.mounting) mountOut = mountMap[s.mounting];
+  // Adjust plate size for heavy tier
+  if (s.mounting === 'top-plate' && (tier === 'heavy')) mountOut = 'Top plate, 4-1/2" × 6-1/4" (BHP 2-7/16" × 4-15/16")';
+  if (s.mounting === 'top-plate' && (tier === 'extra-heavy' || tier === 'custom')) mountOut = 'Top plate, 5-1/4" × 7-1/4" or larger';
+
+  // Mobility
+  let mobOut = null, brakesOut = null;
+  const mobMap = {
+    '2sw-2rg':         '2 swivel + 2 rigid',
+    '4sw':             '4 swivel',
+    'diamond':         'Diamond pattern (6-wheel)',
+    'custom-mobility': 'Custom arrangement',
+  };
+  if (s.mobility) mobOut = mobMap[s.mobility];
+  const brakeMap = {
+    'none':             'No brakes',
+    'wheel-brake':      'Toe-lock wheel brake on swivels',
+    'total-lock':       'Total-lock brake',
+    'directional-lock': 'Directional lock',
+  };
+  if (s.brakes) brakesOut = brakeMap[s.brakes];
+
+  // Bearing
+  let bearing = null;
+  if (s.duty === 'occasional') bearing = 'Delrin bushing or roller bearing';
+  else if (s.duty === 'regular') bearing = 'Precision ball bearing';
+  else if (s.duty === 'continuous') bearing = 'Sealed precision ball bearing, raceway hardened';
+
+  // Suggested series
+  let series = null;
+  if (tier === 'light' || tier === 'medium') {
+    series = 'AIE / Colson 4-Series equivalent';
+  } else if (tier === 'heavy') {
+    series = 'Albion 16/18 Series or Colson Encore equivalent';
+  } else if (tier === 'extra-heavy') {
+    series = 'Albion 310 / Hamilton Champion equivalent';
+  } else if (tier === 'custom') {
+    series = 'Custom engineered build';
+  }
+
+  // Compliance overrides
+  if (reqs.includes('cleanroom')) series = 'Stainless cleanroom rig (Colson / Faultless equivalent)';
+  if (reqs.includes('fda') || reqs.includes('nsf')) series = 'Stainless USDA/NSF rig';
+  if (reqs.includes('esd')) series = 'ESD-rated conductive rig';
+
+  return {
+    application: s.application,
+    perCaster,
+    capacityText: perCaster !== null ? `${perCaster.toLocaleString()} lb per caster` : null,
+    capacitySub: (s.totalLoad && s.casterCount) ? `${Number(s.totalLoad).toLocaleString()} lb total ÷ ${s.casterCount} casters × 1.33 safety factor` : null,
+    wheel: wheelMat,
+    wheelSub,
+    size,
+    mount: mountOut,
+    mobility: mobOut,
+    brakes: brakesOut,
+    bearing,
+    series,
+    custom: tier === 'custom',
+  };
+}
+
+/* ============================================================
+   SPEC RAIL update (live)
+   ============================================================ */
+function updateSpec() {
+  const r = recommend(STATE);
+
+  setSpec('application', humanizeApplication(STATE.application));
+  setSpec('capacity', r.capacityText);
+  document.querySelector('[data-spec="capacity-sub"]').textContent = r.capacitySub || '';
+  setSpec('wheel', r.wheel);
+  document.querySelector('[data-spec="wheel-sub"]').textContent = r.wheelSub || '';
+  setSpec('size', r.size);
+  setSpec('mount', r.mount);
+  setSpec('mobility-out', r.mobility);
+  document.querySelector('[data-spec="brakes-out"]').textContent = r.brakes || '';
+  setSpec('bearing', r.bearing);
+  setSpec('series', r.series);
+}
+
+function setSpec(key, value) {
+  const el = document.querySelector(`[data-spec="${key}"]`);
+  if (!el) return;
+  if (value) {
+    el.textContent = value;
+    el.classList.remove('is-empty');
+  } else {
+    el.textContent = '—';
+    el.classList.add('is-empty');
+  }
+}
+
+function humanizeApplication(v) {
+  const map = {
+    'cart': 'Cart or dolly',
+    'workbench': 'Workbench or table',
+    'rack': 'Storage rack / shelving',
+    'equipment': 'Industrial equipment',
+    'specialty': 'Medical / food / cleanroom',
+    'replacement': 'Replacement (matching existing)',
+    'other': 'Custom application',
+  };
+  return v ? map[v] : null;
+}
+
+/* ============================================================
+   FINAL RESULTS render (step 7)
+   ============================================================ */
+function computeAndRenderFinal() {
+  const r = recommend(STATE);
+  const id = 'SPEC-' + Math.floor(100000 + Math.random() * 900000);
+  document.getElementById('spec-id').textContent = id;
+  STATE.specId = id;
+
+  const grid = document.getElementById('final-spec-grid');
+  const blocks = [
+    { label: 'Application',          val: humanizeApplication(STATE.application) || '—' },
+    { label: 'Capacity required',    val: r.capacityText || '—', sub: r.capacitySub },
+    { label: 'Wheel material',       val: r.wheel || '—', sub: r.wheelSub },
+    { label: 'Wheel size',           val: r.size || '—' },
+    { label: 'Mount',                val: r.mount || '—' },
+    { label: 'Caster arrangement',   val: r.mobility || '—' },
+    { label: 'Brake',                val: r.brakes || 'None' },
+    { label: 'Bearing / duty',       val: r.bearing || '—' },
+    { label: 'Suggested series',     val: r.series || '—' },
+    { label: 'Special requirements', val: (STATE.requirements && STATE.requirements.length && !STATE.requirements.includes('none')) ? STATE.requirements.map(x => x.toUpperCase()).join(', ') : 'None' },
+  ];
+
+  grid.innerHTML = blocks.map(b => `
+    <div class="final-spec-block">
+      <div class="final-spec-label">${b.label}</div>
+      <div class="final-spec-value">${b.val}</div>
+      ${b.sub ? `<div class="final-spec-sub">${b.sub}</div>` : ''}
+    </div>
+  `).join('');
+
+  if (r.custom) {
+    document.getElementById('results-title').textContent = 'This needs a specialist.';
+    document.getElementById('results-desc').textContent = 'Your load class is above our standard recommendation range. We engineer custom heavy-duty solutions — call our team and we\'ll quote you a tailored spec.';
+  }
+}
+
+/* ============================================================
+   QUOTE form
+   ============================================================ */
+document.getElementById('open-quote-form').addEventListener('click', () => {
+  const form = document.getElementById('quote-form');
+  form.classList.add('is-open');
+  form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => document.getElementById('q-name').focus(), 400);
+});
+
+document.getElementById('quote-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = document.getElementById('q-name').value.trim();
+  const email = document.getElementById('q-email').value.trim();
+  if (!name || !email) return;
+
+  // In WP integration, post to /wp-json/aie/v1/quote
+  // For the standalone preview, we just show success.
+  console.log('Quote submission payload:', {
+    name,
+    company: document.getElementById('q-company').value.trim(),
+    email,
+    phone: document.getElementById('q-phone').value.trim(),
+    quantity: document.getElementById('q-qty').value.trim(),
+    notes: document.getElementById('q-notes').value.trim(),
+    specId: STATE.specId,
+    spec: recommend(STATE),
+    state: STATE,
+  });
+
+  document.getElementById('quote-success').classList.add('is-open');
+  e.target.querySelector('.quote-submit').disabled = true;
+  e.target.querySelector('.quote-submit').textContent = 'Sent ✓';
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+renderProgress();
+renderStep();
+updateSpec();
+</script>
+
+</body>
+</html>
